@@ -48,7 +48,7 @@ function postComment (parentId) {
       return;
     } else {
       console.log('// ------ //');
-      // console.log(body);
+      console.log(body);
       console.log('// ------ //');
     }
   });
@@ -109,9 +109,12 @@ function login () {
 
 function fetchComments () {
   var mindate = (typeof youngest === 'undefined') ? '' : '&mindate=' + youngest;
-  needle.get( 'http://api.redditanalytics.com/getRecent.php?limit=500', {timeout: 5000}, function (err, res, body) {
+  needle.get( 'http://api.redditanalytics.com/getRecent.php', {
+    timeout : 5000,
+    headers : { user_agent : 'bot_skit 0.1 by bot_test_acct' }
+  }, function (err, res, body) {
     if (err){
-      console.log('caught an error fetching comments, here\'s the hash:');
+      console.log('READ ERROR:');
       console.log(err.stack);
       return;
     }
